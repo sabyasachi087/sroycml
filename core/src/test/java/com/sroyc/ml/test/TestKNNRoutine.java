@@ -2,6 +2,7 @@ package com.sroyc.ml.test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ public class TestKNNRoutine {
 		Reader reader = null;
 		BufferedReader br = null;
 		try {
-			reader = new InputStreamReader(getClass().getResourceAsStream("/knn_data_set.txt"));
+			InputStream stream = getClass().getResourceAsStream("/knn_data_set.txt");
+			reader = new InputStreamReader(stream);
 			br = new BufferedReader(reader);
 			String line = null;
 
