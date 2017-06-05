@@ -1,10 +1,5 @@
 package com.sroyc.ml.test;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,27 +23,7 @@ public class TestKNNRoutine {
 
 	@Before
 	public void init() {
-		Reader reader = null;
-		BufferedReader br = null;
-		try {
-			InputStream stream = getClass().getResourceAsStream("/knn_data_set.txt");
-			reader = new InputStreamReader(stream);
-			br = new BufferedReader(reader);
-			String line = null;
-
-			while ((line = br.readLine()) != null) {
-				dataSet.add(line.split("\t"));
-			}
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		} finally {
-			try {
-				br.close();
-				reader.close();
-			} catch (Exception ex) {
-			}
-		}
-		Assert.assertTrue(dataSet.size() > 0);
+		dataSet.addAll(ResourceReader.read("/knn_data_set.txt", "\t"));
 	}
 
 	@Test
