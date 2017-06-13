@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class ShanonEntropy {
+public final class ShanonEntropy {
 
 	private List<String> labels = new ArrayList<>();
 	private Map<String, Integer> labelCountMap = new HashMap<>();
@@ -14,7 +14,24 @@ public class ShanonEntropy {
 
 	private static final Integer FLOATING_POINT_MULTPLIER = 1000000;
 
-	public ShanonEntropy(List<String> labels) {
+	/**
+	 * Loads the object from the entire dataset assuming the last index is for
+	 * label or classifier
+	 */
+	public static final ShanonEntropy loadFromDataset(List<String[]> dataset) {
+		List<String> labels = new ArrayList<>();
+		int labelIndx = dataset.get(0).length - 1;
+		for (String[] record : dataset) {
+			labels.add(record[labelIndx]);
+		}
+		return loadFromLabels(labels);
+	}
+
+	public static final ShanonEntropy loadFromLabels(List<String> labels) {
+		return new ShanonEntropy(labels);
+	}
+
+	protected ShanonEntropy(List<String> labels) {
 		this.labels = labels;
 		this.populateLabelMap();
 		this.size = this.labels.size();

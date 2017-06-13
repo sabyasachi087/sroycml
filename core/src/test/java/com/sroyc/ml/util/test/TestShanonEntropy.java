@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.sroyc.ml.test.ResourceReader;
@@ -15,7 +16,7 @@ public class TestShanonEntropy {
 	private static final Logger LOGGER = Logger.getLogger(TestShanonEntropy.class.getName());
 	private static final List<String[]> dataSet = new ArrayList<>();
 
-	@Test
+	@Before
 	public void init() {
 		dataSet.addAll(ResourceReader.read("/shanon_entropy_data_set.txt", "\t"));
 	}
@@ -27,7 +28,7 @@ public class TestShanonEntropy {
 		for (String[] ds : dataSet) {
 			labels.add(ds[dimension - 1]);
 		}
-		ShanonEntropy sh = new ShanonEntropy(labels);
+		ShanonEntropy sh = ShanonEntropy.loadFromLabels(labels);
 		LOGGER.log(Level.INFO, "Shenon Entropy = " + sh.calculate());
 	}
 
